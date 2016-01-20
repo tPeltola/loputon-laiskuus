@@ -5,7 +5,7 @@ import Terrain
 import Prelude hiding (Right, Left)
 
 -- In Bloxorz, we can move left, right, Up or down.
--- These moves are encoded as case objects.
+-- These moves are encoded as constructors for Move data type.
 data Move = Up | Down | Left | Right deriving Show
 
 -- A block is represented by the position of the two cubes that
@@ -17,22 +17,20 @@ data Block = B { p1 :: Pos, p2 :: Pos } deriving (Ord, Eq, Show)
 makeBlock :: Pos -> Pos -> Block
 makeBlock p1 p2 = assert (x p1 <= x p2 && y p1 <= y p2) $ B p1 p2
 
-type BlockState = (Level, Block)
-
--- The position obtained by changing the `y` coordiante by `d`
+-- The position obtained by changing the `y` coordinate by `d`
 dy :: Pos -> Int -> Pos
-dy pos i = pos { y = y pos + i }
+dy pos d = pos { y = y pos + d }
 
--- The position obtained by changing the `x` coordiante by `d`
+-- The position obtained by changing the `x` coordinate by `d`
 dx :: Pos -> Int -> Pos
-dx pos i = pos { x = x pos + i }
+dx pos d = pos { x = x pos + d }
 
--- Returns a block where the `y` coordinates of `b1` and `b2` are
+-- Returns a block where the `y` coordinates of `p1` and `p2` are
 -- changed by `d1` and `d2`, respectively.
 blockDy :: Block -> Int -> Int -> Block
 blockDy b d1 d2 = makeBlock (dy (p1 b) d1) (dy (p2 b) d2)
 
--- Returns a block where the `x` coordinates of `b1` and `b2` are
+-- Returns a block where the `x` coordinates of `p1` and `p2` are
 -- changed by `d1` and `d2`, respectively.
 blockDx :: Block -> Int -> Int -> Block
 blockDx b d1 d2 = makeBlock (dx (p1 b) d1) (dx (p2 b) d2)
@@ -40,49 +38,49 @@ blockDx b d1 d2 = makeBlock (dx (p1 b) d1) (dx (p2 b) d2)
 -- This function returns the block at the start position of
 -- the game.
 startBlock :: Level -> Block
-startBlock l = undefined
+startBlock level = undefined
 
 -- Returns `true` if the block is standing.
 standing :: Block -> Bool
-standing b = undefined
+standing block = undefined
 
-vertical :: Block -> Bool
-vertical b = (x.p1) b == (x.p2) b
+horizontal :: Block -> Bool
+horizontal block = (x.p1) block == (x.p2) block
 
 left :: Block -> Block
 left block
   | standing block   = blockDy block (-2) (-1)
-  | vertical block   = blockDy block (-1) (-2)
+  | horizontal block = blockDy block (-1) (-2)
   | otherwise        = blockDy block (-1) (-1)
 
 right :: Block -> Block
 right block
   | standing block   = blockDy block 1 2
-  | vertical block   = blockDy block 2 1
+  | horizontal block = blockDy block 2 1
   | otherwise        = blockDy block 1 1
 
 up :: Block -> Block
 up block
   | standing block   = blockDx block (-2) (-1)
-  | vertical block   = blockDx block (-1) (-1)
+  | horizontal block = blockDx block (-1) (-1)
   | otherwise        = blockDx block (-1) (-2)
 
 down :: Block -> Block
 down block
   | standing block   = blockDx block 1 2
-  | vertical block   = blockDx block 1 1
+  | horizontal block = blockDx block 1 1
   | otherwise        = blockDx block 2 1
 
 -- Returns the list of blocks that can be obtained by moving
 -- the current block, together with the corresponding move.
 neighbours :: Block -> [(Block, Move)]
-neighbours b = undefined
+neighbours block = undefined
 
 -- Returns `true` if the block is entirely inside the terrain.
 isLegal :: Block -> (Pos -> Bool) -> Bool
-isLegal b terrf = undefined
+isLegal block terrain = undefined
 
 -- Returns the list of positions reachable from the current block
 -- which are inside the terrain.
 legalNeighbours :: Block -> (Pos -> Bool) -> [(Block, Move)]
-legalNeighbours block terrf = undefined
+legalNeighbours block terrain = undefined

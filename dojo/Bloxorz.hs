@@ -10,11 +10,11 @@ type State = (Block, [Move])
 
 -- Returns `true` if the block `b` is at the final position
 done :: Block -> Level -> Bool
-done b l = undefined
+done b level = undefined
 
--- This function takes two arguments: the current block `b` and
+-- This function takes three arguments: the current block `b`,
 -- a list of moves `history` that was required to reach the
--- position of `b`.
+-- position of `b` and the level that is played.
 --
 -- The `head` element of the `history` list is the latest move
 -- that was executed, i.e. the last move that was performed for
@@ -27,7 +27,7 @@ done b l = undefined
 -- It should only return valid neighbors, i.e. block positions
 -- that are inside the terrain.
 neighboursWithHistory :: Block -> Level -> [Move] -> [State]
-neighboursWithHistory block level moves = undefined
+neighboursWithHistory b level history = undefined
 
 -- This function returns the list of neighbors without the block
 -- positions that have already been explored. We will use it to
@@ -35,35 +35,35 @@ neighboursWithHistory block level moves = undefined
 newNeighbours :: [State] -> Explored -> [State]
 newNeighbours neighbours explored = undefined
 
--- The function `from` returns the stream of all possible paths
+-- The function `from` returns the infinite list of all possible paths
 -- that can be followed, starting at the `head` of the `initial`
--- stream.
+-- list.
 --
--- The blocks in the stream `initial` are sorted by ascending path
+-- The blocks in the list `initial` are sorted by ascending path
 -- length: the block positions with the shortest paths (length of
--- move list) are at the head of the stream.
+-- move list) are at the head of the list.
 --
 -- The parameter `explored` is a set of block positions that have
 -- been visited before, on the path to any of the blocks in the
--- stream `initial`. When search reaches a block that has already
+-- list `initial`. When search reaches a block that has already
 -- been explored before, that position should not be included a
 -- second time to avoid circles.
 --
--- The resulting stream should be sorted by ascending path length,
+-- The resulting list should be sorted by ascending path length,
 -- i.e. the block positions that can be reached with the fewest
--- amount of moves should appear first in the stream.
+-- amount of moves should appear first in the list.
 --
 -- Note: the solution should not look at or compare the lengths
 -- of different paths - the implementation should naturally
--- construct the correctly sorted stream.
+-- construct the correctly sorted list.
 from :: Level -> [State] -> Explored -> [State]
 from level initial explored = undefined
 
--- The stream of all paths that begin at the starting block.
+-- The (possibly) infinite list of all paths that begin at the starting block.
 pathsFromStart :: Level -> [State]
 pathsFromStart level = undefined
 
--- Returns a stream of all possible pairs of the goal block along
+-- Returns a list of all possible pairs of the goal block along
 -- with the history how it was reached.
 pathsToGoal :: Level -> [State]
 pathsToGoal l = undefined
