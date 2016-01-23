@@ -8,6 +8,7 @@ import Levels
 import Terrain
 
 import Prelude hiding (Right, Left)
+import Data.Set (fromList)
 
 -- To run the tests inside the interpreter, execute "runTestTT tests"
 
@@ -18,6 +19,8 @@ tests = TestList
   , TestLabel "Optional solution for level 1" test3
   , TestLabel "Optional solution length for level 1" test4
   , TestLabel "Optional solution length for an infinite level" test5
+  , TestLabel "Finding neighbors for level 1" test6
+  , TestLabel "Finding new neighbors for level 1" test7
   ]
 
 test1a = TestCase (assertBool "is terrain at 0,0" (terrain levelVector (Pos 0 0)))
@@ -43,13 +46,31 @@ test4 =
 test5 =
   TestCase (assertEqual "infinite level solution length" 5 (length (solution infiniteLevel)))
 
+test6 =
+  TestCase (assertEqual
+    "Neighbor history matches"
+    [(makeBlock (Pos 1 2) (Pos 1 3), [Right,Left,Up]), (makeBlock (Pos 2 1) (Pos 3 1), [Down,Left,Up])]
+    (neighboursWithHistory (makeBlock (Pos 1 1) (Pos 1 1)) level [Left, Up])
+  )
+  where level = buildLevel level1
+
+test7 =
+  TestCase (assertEqual
+    "Explored neigbors are ignored"
+    [(makeBlock (Pos 2 1) (Pos 3 1), [Down,Left,Up])]
+    (newNeighbours
+      [(makeBlock (Pos 1 2) (Pos 1 3), [Right,Left,Up]), (makeBlock (Pos 2 1) (Pos 3 1), [Down,Left,Up])]
+      (fromList [makeBlock (Pos 1 2) (Pos 1 3), makeBlock (Pos 1 1) (Pos 1 1)])
+      )
+  )
+
 
 solve :: Block -> [Move] -> Block
 solve start moves = foldl follow start moves
-  where follow block Left = left block
+  where follow block Left  = left block
         follow block Right = right block
-        follow block Up = up block
-        follow block Down = down block
+        follow block Up    = up block
+        follow block Down  = down block
 
 level1solution = [Right, Right, Down, Right, Right, Right, Down]
 
