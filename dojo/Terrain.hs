@@ -63,6 +63,7 @@ toLevel t = Level { start = findChar 'S' t
                   , terr = terrain t
                   }
 
+-- TODO 1:
 -- This function should return the position of character `c` in the
 -- terrain described by `levelVector`. You can assume that the `c`
 -- appears exactly once in the terrain.
@@ -72,6 +73,7 @@ toLevel t = Level { start = findChar 'S' t
 findChar :: Char -> Terrain -> Pos
 findChar c levelVector = undefined
 
+-- TODO 2:
 -- This method returns terrain function that represents the terrain
 -- in `levelVector`. The vector contains parsed version of the `level`
 -- string. For example, the following level

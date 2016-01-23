@@ -8,10 +8,12 @@ import Block
 type Explored = Set Block
 type State = (Block, [Move])
 
+-- TODO 8:
 -- Returns `true` if the block `b` is at the final position
 done :: Block -> Level -> Bool
 done b level = undefined
 
+-- TODO 9:
 -- This function takes three arguments: the current block `b`,
 -- a list of moves `history` that was required to reach the
 -- position of `b` and the level that is played.
@@ -29,12 +31,14 @@ done b level = undefined
 neighboursWithHistory :: Block -> Level -> [Move] -> [State]
 neighboursWithHistory b level history = undefined
 
+-- TODO 10:
 -- This function returns the list of neighbors without the block
 -- positions that have already been explored. We will use it to
 -- make sure that we don't explore circular paths.
 newNeighbours :: [State] -> Explored -> [State]
 newNeighbours neighbours explored = undefined
 
+-- TODO 11:
 -- The function `from` returns the infinite list of all possible paths
 -- that can be followed, starting at the `head` of the `initial`
 -- list.
@@ -59,15 +63,18 @@ newNeighbours neighbours explored = undefined
 from :: Level -> [State] -> Explored -> [State]
 from level initial explored = undefined
 
+-- TODO 12:
 -- The (possibly) infinite list of all paths that begin at the starting block.
 pathsFromStart :: Level -> [State]
 pathsFromStart level = undefined
 
+-- TODO 13:
 -- Returns a list of all possible pairs of the goal block along
 -- with the history how it was reached.
 pathsToGoal :: Level -> [State]
 pathsToGoal l = undefined
 
+-- TODO 14:
 -- The (or one of the) shortest sequence(s) of moves to reach the
 -- goal. If the goal cannot be reached, the empty list is returned.
 --
