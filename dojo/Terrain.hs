@@ -3,7 +3,7 @@ module Terrain where
 import Data.Char
 import Data.Maybe
 import Data.Vector (Vector, fromList, (!), length, elemIndex, findIndex, elem)
-import Prelude hiding (length)
+import Prelude hiding (length) -- we need Vectors length, not lists
 
 
 -- The data type `Pos` encodes positions in the terrain.
@@ -27,19 +27,18 @@ import Prelude hiding (length)
 --   x axis
 data Pos = Pos { x :: Int, y :: Int } deriving (Show, Eq, Ord)
 
--- TODO: Joku muu nimi ja TerrainF=>Terrain?
-type Terrain = Vector (Vector Char)
+type RawLevel = Vector (Vector Char)
 -- The terrain is represented as a function from positions to
 -- booleans. The function returns `true` for every position that
 -- is inside the terrain.
 --
 -- As explained in the documentation of class `Pos`, the `x` axis
 -- is the vertical one and increases from top to bottom.
-type TerrainF = Pos -> Bool
+type Terrain = Pos -> Bool
 
 data Level = Level { start :: Pos
                    , goal :: Pos
-                   , terr :: TerrainF
+                   , terr :: Terrain
                    }
 
 -- This component implements a parser to define terrains from a
@@ -54,10 +53,10 @@ data Level = Level { start :: Pos
 buildLevel :: [String] -> Level
 buildLevel = toLevel . toTerrain
 
-toTerrain :: [String] -> Terrain
+toTerrain :: [String] -> RawLevel
 toTerrain = fromList . map fromList
 
-toLevel :: Terrain -> Level
+toLevel :: RawLevel -> Level
 toLevel t = Level { start = findChar 'S' t
                   , goal = findChar 'T' t
                   , terr = terrain t
@@ -70,7 +69,7 @@ toLevel t = Level { start = findChar 'S' t
 --
 -- Hint: you can use the functions `findIndex` and / or `elemIndex` of the
 -- `Vector` class
-findChar :: Char -> Terrain -> Pos
+findChar :: Char -> RawLevel -> Pos
 findChar c levelVector = undefined
 
 -- TODO 2:
@@ -89,5 +88,5 @@ findChar c levelVector = undefined
 -- The resulting function should return `true` if the position `pos` is
 -- a valid position (not a '-' character) inside the terrain described
 -- by `levelVector`.
-terrain :: Terrain -> TerrainF
+terrain :: RawLevel -> Terrain
 terrain levelVector pos = undefined

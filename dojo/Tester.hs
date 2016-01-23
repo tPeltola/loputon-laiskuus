@@ -7,6 +7,8 @@ import Bloxorz
 import Levels
 import Terrain
 
+-- Apuympäristö ghci testailun avustamiseksi
+
 pa = Pos 0 0
 pb = Pos 0 0
 block = makeBlock pa pb
