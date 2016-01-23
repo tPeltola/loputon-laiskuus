@@ -27,7 +27,10 @@ import Prelude hiding (length) -- we need Vectors length, not lists
 --   x axis
 data Pos = Pos { x :: Int, y :: Int } deriving (Show, Eq, Ord)
 
-type RawLevel = Vector (Vector Char)
+-- LevelVector that defines where tiles are is represented as 2d Vector
+--
+type LevelVector = Vector (Vector Char)
+
 -- The terrain is represented as a function from positions to
 -- booleans. The function returns `true` for every position that
 -- is inside the terrain.
@@ -53,10 +56,10 @@ data Level = Level { start :: Pos
 buildLevel :: [String] -> Level
 buildLevel = toLevel . toTerrain
 
-toTerrain :: [String] -> RawLevel
+toTerrain :: [String] -> LevelVector
 toTerrain = fromList . map fromList
 
-toLevel :: RawLevel -> Level
+toLevel :: LevelVector -> Level
 toLevel t = Level { start = findChar 'S' t
                   , goal = findChar 'T' t
                   , terr = terrain t
@@ -64,17 +67,17 @@ toLevel t = Level { start = findChar 'S' t
 
 -- TODO 1:
 -- This function should return the position of character `c` in the
--- terrain described by `levelVector`. You can assume that the `c`
+-- terrain described by `LevelVector`. You can assume that the `c`
 -- appears exactly once in the terrain.
 --
 -- Hint: you can use the functions `findIndex` and / or `elemIndex` of the
 -- `Vector` class
-findChar :: Char -> RawLevel -> Pos
+findChar :: Char -> LevelVector -> Pos
 findChar c levelVector = undefined
 
 -- TODO 2:
 -- This method returns terrain function that represents the terrain
--- in `levelVector`. The vector contains parsed version of the `level`
+-- in `LevelVector`. The vector contains parsed version of the `level`
 -- string. For example, the following level
 --
 -- level0 = ["ST",
@@ -87,6 +90,6 @@ findChar c levelVector = undefined
 --
 -- The resulting function should return `true` if the position `pos` is
 -- a valid position (not a '-' character) inside the terrain described
--- by `levelVector`.
-terrain :: RawLevel -> Terrain
+-- by `LevelVector`.
+terrain :: LevelVector -> Terrain
 terrain levelVector pos = undefined
