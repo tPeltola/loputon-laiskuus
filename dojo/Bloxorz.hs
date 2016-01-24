@@ -1,6 +1,6 @@
 module Bloxorz where
 
-import Data.Set (Set, notMember, union, fromList, singleton)
+import Data.Set (Set, notMember, union, fromList, singleton, insert, empty)
 import Levels
 import Terrain
 import Block
