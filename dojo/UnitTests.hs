@@ -44,7 +44,7 @@ test4 =
         moves = solution level
 
 test5 =
-  TestCase (assertEqual "infinite level solution length" 5 (length (solution infiniteLevel)))
+  TestCase (assertEqual "infinite level solution length" 8 (length (solution infiniteLevel)))
 
 test6 =
   TestCase (assertEqual
