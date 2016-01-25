@@ -79,7 +79,8 @@
 					</blockquote>
 					<p>
 						Kun ohjelmointi kieli on laiska (lazy), se ei evaluoi lausekkeen
-						arvoa ennen kuin sitä tarvitaan.
+						arvoa ennen kuin sitä tarvitaan. Laiskasti arvoa ei myöskään
+						evaluoida kuin kerran.
 					</p>
 					<p>
 						Vastakkainen evaluointistragegia olisi ... (eager). Suurin osa
@@ -94,17 +95,42 @@
 				<section>
 					<h2>Haskell ja laiskuus</h2>
 					<p>
-						Haskell on laiska. Mitään ei lasketa ennen kuin on tarpeen.
+						Haskell on oletuksena laiska. Mitään ei lasketa ennen kuin on tarpeen.
 					</p>
+					<p>
+						Tarvittaessa on mahdollista pakottaa Haskell laskemaan ennakkoon.
+						Tämän tarkoituksena vähentää muistin käyttöä keskeneräisiin operaatioihin.
+					</p>
+				</section>
+
+				<section>
+					<h2>Äärettömät listat</h2>
 					<p>
 						Laiskuuden etuihin kuuluu äärettömien rakenteiden triviaali
 						esittäminen ohjelmointikielen tasolla. Esimerkiksi äärettömän
-						listan esittäminen on triviaalia:
+						listan esittäminen on yksinkertaista:
 					</p>
 					<pre><code class="haskell" data-trim contenteditable>
 let ones = 1 : ones -- [1,1,1,...]
 let x = [1..] -- [1,2,3,...]
+let fibs = 0 : 1 : zipWith (+) fibs (tail fibs) -- [0,1,1,2,3,5,8,...]
 					</code></pre>
+				</section>
+
+				<section>
+					<h2>Äärettömät listat äärellisessä muistissa</h2>
+					<p>
+						Yksi käyttökohde on pelien tekoälyssä. Esimerkiksi
+						shakissa voisi generoida ääretöntä listaa mahdollisia siirtoja.
+					</p>
+					<p>
+						Luonnollisesti vain osan äärettömästä tietorakenteesta voi evaluoida,
+						mutta niiden käsittely on helpompaa, kun tarvittava koko päätetään
+						vasta tietorakennetta käytettäessä.
+					</p>
+					<p>
+						Äärettömät listat ovat myös hyvä keino helposti käyttää kaikki tietokoneen muisti...
+					</p>
 				</section>
 
 				<section>
