@@ -171,8 +171,8 @@ foo a b = a * x
 
 foo :: Integer -> Integer -> Integer
 foo a b = let
-            x = b * b
-				  in a * x
+  x = b * b
+  in a * x
 					</code></pre>
 				</section>
 
@@ -202,9 +202,9 @@ myFilter a :: as
   | skipNext a = a : evens $ tail as
   | even a     = a : evens as
   | otherwise  = evens as
-	where
-		skipNext a = a in [5,7,11,13,17]
-	  even a     = a `div` 2 == 0 -- even löytyy oikeasti Preludesta
+  where
+    skipNext a = a in [5,7,11,13,17]
+    even a     = a `div` 2 == 0 -- even löytyy oikeasti Preludesta
 					</code></pre>
 				</section>
 
@@ -226,7 +226,7 @@ takeTwos xs = filter (\x -> x == 2) xs
 add :: Integer -> Integer -> Integer
 -- on sama kuin:
 add :: Integer -> (Integer -> Integer)
--- on loogisesti sama kuin 1-parametrinen funktio (tuple):
+-- on loogisesti sama kuin 1-parametrinen funktio:
 add :: (Integer, Integer) -> Integer
 					</code></pre>
 					<p>
@@ -251,12 +251,23 @@ type LevelVector = Vector (Vector Char)
 					<pre><code class="haskell" data-trim contenteditable>
 index :: [a] -> [(Integer, a)]
 index as = zip as [0..]
+let t = (1,2)
+-- Tuple2:lle on
+fst t -- 1
+snd t -- 2
 					</code></pre>
 				</section>
 
 				<section>
 					<h2>Record</h2>
 					<pre><code class="haskell" data-trim contenteditable>
+-- "immutable versio C:n structista"
+data Pos = Pos { x :: Int, y :: Int }
+-- Jäsen access
+let p = Pos 0 0
+let x = x p -- x :: Int == 0
+-- uuden luominen vanhasta
+let q = p { x = 1 } -- q == Pos {x = 1, y = 0}
 					</code></pre>
 				</section>
 
@@ -284,7 +295,7 @@ div a b = a `div` b
 				</section>
 
 				<section>
-					<h2>Predule</h2>
+					<h2>Predule 1/2</h2>
 					<p>
 						Prelude on suhteellisen pieni haskell-moduuli, joka importoidaan
 						automaattisesti kaikkiin haskell-moduuleihin (ellei sitä explisiittisesti
@@ -299,12 +310,19 @@ div a b = a `div` b
 						<li>head :: [a] -&gt; a</li>
 						<li>tail :: [a] -&gt; [a]</li>
 						<li>null :: [a] -&gt; Bool</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Predule 2/2</h2>
+					<ul>
 						<li>fst :: (a, b) -&gt; a</li>
 						<li>snd :: (a, b) -&gt; b</li>
 						<li>($) :: (a -&gt; b) -&gt; a -&gt; b</li>
 						<li>(++) :: [a] -&gt; [a] -&gt; [a]</li>
 					</ul>
 				</section>
+
 
 				<section>
 					<h2>Data.Char</h2>
@@ -327,8 +345,6 @@ div a b = a `div` b
 						<li>fromList :: [a] -&gt; Vector a</li>
 						<li>(!) :: Vector a -&gt; Int -&gt; a</li>
 					  <li>length :: Vector a -&gt; Int</li>
-						<li>elemIndex :: a -&gt; Vector a -&gt; Int</li>
-						<li>findIndex :: (a -&gt; Bool) -&gt; Vector a -&gt; Int</li>
 						<li>elem :: a -&gt; Vector a -&gt; Bool</li>
 					</ul>
 				</section>
@@ -393,7 +409,6 @@ div a b = a `div` b
 						<li>1,2 Terrain.hs</li>
 						<li>3,4,5,6,7 Block.hs</li>
 						<li>8,9,10,11,12,13,14 Bloxorz.hs</li>
-						<li></li>
 					</ul>
 				</section>
 
