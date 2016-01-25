@@ -3,7 +3,7 @@ module Terrain where
 import Data.Char
 import Data.Maybe
 import Data.Vector (Vector, fromList, (!), length, elemIndex, findIndex, elem)
-import Prelude hiding (length) -- we need Vectors length, not lists
+import Prelude hiding (length) -- we need Vectors length, not Lists
 
 
 -- The data type `Pos` encodes positions in the terrain.
@@ -32,7 +32,7 @@ data Pos = Pos { x :: Int, y :: Int } deriving (Show, Eq, Ord)
 type LevelVector = Vector (Vector Char)
 
 -- The terrain is represented as a function from positions to
--- booleans. The function returns `true` for every position that
+-- booleans. The function returns `True` for every position that
 -- is inside the terrain.
 --
 -- As explained in the documentation of class `Pos`, the `x` axis
