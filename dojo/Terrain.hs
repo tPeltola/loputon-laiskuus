@@ -54,10 +54,10 @@ data Level = Level { start :: Pos
 -- - `T` denotes the final position of the block (which is also considered
 --    inside the terrain)
 buildLevel :: [String] -> Level
-buildLevel = toLevel . toTerrain
+buildLevel rows = toLevel $ toTerrain rows
 
 toTerrain :: [String] -> LevelVector
-toTerrain = fromList . map fromList
+toTerrain rows = fromList $ map fromList rows
 
 toLevel :: LevelVector -> Level
 toLevel t = Level { start = findChar 'S' t
@@ -71,9 +71,13 @@ toLevel t = Level { start = findChar 'S' t
 -- appears exactly once in the terrain.
 --
 -- Hint: you can use the functions `findIndex` and / or `elemIndex` of the
--- `Vector` class
+-- `Vector` type or use the following definitions that get rid of the
+-- Maybe wrapper (not really relevant in this task).
 findChar :: Char -> LevelVector -> Pos
 findChar c levelVector = undefined
+
+findIndex' e vector = fromJust $ findIndex e vector
+elemIndex' f vector = fromJust $ elemIndex f vector
 
 -- TODO 2:
 -- This method returns terrain function that represents the terrain

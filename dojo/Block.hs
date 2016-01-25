@@ -41,7 +41,7 @@ standing :: Block -> Bool
 standing block = undefined
 
 horizontal :: Block -> Bool
-horizontal block = (x.p1) block == (x.p2) block
+horizontal block = (x $ p1 block) == (x $ p2 block)
 
 -- TODO 4:
 -- Returns `true` if the block is entirely inside the terrain.
