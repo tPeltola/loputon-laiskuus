@@ -45,7 +45,7 @@ horizontal block = (x.p1) block == (x.p2) block
 
 -- TODO 4:
 -- Returns `true` if the block is entirely inside the terrain.
-isLegal :: Block -> (Pos -> Bool) -> Bool
+isLegal :: Block -> Terrain -> Bool
 isLegal block terrain = undefined
 
 -- TODO 5:
@@ -53,6 +53,9 @@ isLegal block terrain = undefined
 -- the game.
 startBlock :: Level -> Block
 startBlock level = undefined
+
+-- Functions left, right, up and down encode block moves
+-- in Bloxorz game.
 
 left :: Block -> Block
 left block
@@ -87,5 +90,5 @@ neighbours block = undefined
 -- TODO 7:
 -- Returns the list of positions reachable from the current block
 -- which are inside the terrain.
-legalNeighbours :: Block -> (Pos -> Bool) -> [(Block, Move)]
+legalNeighbours :: Block -> Terrain -> [(Block, Move)]
 legalNeighbours block terrain = undefined
