@@ -74,10 +74,34 @@
 
 				<section>
 					<h2>Laiskuus</h2>
+					<p>
+						Kun ohjelmointi kieli on laiska (lazy), se ei evaluoi lausekkeen
+						arvoa ennen kuin sitä tarvitaan.
+					</p>
+					<p>
+						Vastakkainen evaluointistragegia olisi ... (eager). Suurin osa
+						ohjelmointikielistä käyttää tätä strategiaa.
+					</p>
+					<!--
+					  Ei nyt mennä tässä: Strict / non-string semantiikka voidaan toteuttaa
+						vastaavasti eager / lazy evaluoinnilla.
+				  -->
 				</section>
 
 				<section>
 					<h2>Haskell ja laiskuus</h2>
+					<p>
+						Haskell on laiska. Mitään ei lasketa ennen kuin on tarpeen.
+					</p>
+					<p>
+						Laiskuuden etuihin kuuluu äärettömien rakenteiden triviaali
+						esittäminen ohjelmointikielen tasolla. Esimerkiksi äärettömän
+						listan esittäminen on triviaalia:
+					</p>
+					<pre><code class="haskell" data-trim contenteditable>
+let ones = 1 : ones -- [1,1,1,...]
+let x = [1..] -- [1,2,3,...]
+					</code></pre>
 				</section>
 
 				<section>
@@ -87,20 +111,241 @@
 laske :: (Integer -> Integer -> Integer) -> Integer -> Integer -> Integer
 laske oper l r = oper l r
 					</code></pre>
+					<ul>
+						<li>Funktion määrittely ja kutsu</li>
+						<li>where / let in</li>
+						<li>if on expression</li>
+						<li>Pattern Matching, @</li>
+						<li>Guards</li>
+						<li>lambda</li>
+						<li>Currying</li>
+						<li>data, type, deriving</li>
+						<li>Tuple</li>
+						<li>Record</li>
+						<li>bottom / undefined / error</li>
+						<li></li>
+					</ul>
 			  </section>
 
 				<section>
+					<h2>Funktio</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+add1 :: Integer -> Integer
+add1 a = a + 1
+
+add :: Integer -> Integer -> Integer
+add a b = a + b
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>where / let .. in </h2>
+					<pre><code class="haskell" data-trim contenteditable>
+foo :: Integer -> Integer -> Integer
+foo a b = a * x
+  where x = b * b
+
+foo :: Integer -> Integer -> Integer
+foo a b = let
+            x = b * b
+				  in a * x
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>If</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+let s = if True then 2 else 1
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Pattern matching</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+fact :: Integer -> Integer
+fact 1 = 1
+fact a = a * fact (a - 1)
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Guards (&amb; pattern mathing)</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+-- keinotekoinen esimerkki
+myFilter :: [Integer] -> [Integer]
+myFilter [] = []
+myFilter a :: as
+  | skipNext a = a : evens $ tail as
+  | even a     = a : evens as
+  | otherwise  = evens as
+	where
+		skipNext a = a in [5,7,11,13,17]
+	  even a     = a `div` 2 == 0 -- even löytyy oikeasti Preludesta
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Lambda</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+takeTwos xs = filter (\x -> x == 2) xs
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Currying</h2>
+					<p>
+						Haskellin funktiot ovat oletuksena "curried". Tämä tarkoittaa sitä,
+						että niitä voi kutsua pienemmällä parametrimäärällä kuin mitä funktion
+						rungon suorittamiseen tarvitaan. Esimerkiksi
+					</p>
+					<pre><code class="haskell" data-trim contenteditable>
+add :: Integer -> Integer -> Integer
+-- on sama kuin:
+add :: Integer -> (Integer -> Integer)
+-- on loogisesti sama kuin 1-parametrinen funktio (tuple):
+add :: (Integer, Integer) -> Integer
+					</code></pre>
+					<p>
+						Kahta ensimmäistä voi kutsua <code>add 1</code>. Tällöin paluuarvo
+						on funktio joka ottaa yhden parametrin ja lisää annettuun
+						parametriin arvon 1. Funktion kutsumista pienemmällä määrällä
+						parametreja kuin mitä se ottaa kutsutaan osittaiseki soveltamiseksi
+						(partial application)
+					</p>
+				</section>
+
+				<section>
+					<h2>Data, Type, deriving</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+data Move = Up | Down | Left | Right deriving (Eq, Show)
+type LevelVector = Vector (Vector Char)
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Tuple</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+index :: [a] -> [(Integer, a)]
+index as = zip as [0..]
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Record</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>bottom / undefined / error</h2>
+					<p>
+						Haskel ei ole totaalinen (total) kieli. GHC ei yritä tarkastaa että
+						mikään input funktiolle ei aiheuta päättymätöntä laskentaa.
+					</p>
+					<p>
+						Kehitysaikaisessa koodissa voidaan käyttää undefined ja error-funktiota
+						apuna. Tämä auttaa erityisesti type drive development-kehittämistä.
+					</p>
+					<pre><code class="haskell" data-trim contenteditable>
+div :: Integer -> Integer -> Integer
+div _ 0 = error "Division is not defined for 0"
+div a b = a `div` b
+					</code></pre>
+				</section>
+
+
+				<section>
 					<h2>Lyhyt oppimäärä Haskellin standardikirjastosta</h2>
+					<p>Optimoitu tämän tehtävän tarpeisiin</p>
+				</section>
+
+				<section>
+					<h2>Predule</h2>
+					<p>
+						Prelude on suhteellisen pieni haskell-moduuli, joka importoidaan
+						automaattisesti kaikkiin haskell-moduuleihin (ellei sitä explisiittisesti
+						estä). Nimitörmäysten vuoksi tehtävässä Preludesta joudutaan paikoin
+						piilottamaan osia.
+					</p>
+					<ul>
+						<li>type String = [Char]</li>
+						<li>filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</li>
+						<li>map :: (a -&gt; b) -&gt; [a] -&gt; [b]</li>
+						<li>reverse :: [a] -&gt; [a]</li>
+						<li>head :: [a] -&gt; a</li>
+						<li>tail :: [a] -&gt; [a]</li>
+						<li>null :: [a] -&gt; Bool</li>
+						<li>fst :: (a, b) -&gt; a</li>
+						<li>snd :: (a, b) -&gt; b</li>
+						<li>($) :: (a -&gt; b) -&gt; a -&gt; b</li>
+						<li>(++) :: [a] -&gt; [a] -&gt; [a]</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Data.Char</h2>
+					<p>
+						Nimestäkin voi päätellä, että tämä sisältää Char-tietotyypin ja sen
+						käsittelyn funktioita. Tässä harjoituksessa meille riittää pelkkä
+						tietotyyppi.
+					</p>
+				</section>
+
+				<section>
+					<h2>Data.Vector</h2>
+					<p>
+						Syntaksistaan huolimatta Haskell:n lista ([]) on hyvin eri asia kuin
+						C:n taulukko tai C++:n std::vector. Tehtävän kannalta oleellisin
+						rajoitus on O(n) indeksointi. Tämä tehtävä hyötyy kuitenkin O(1)
+						indeksoinnista, joten käytämme taustarakenteena Vector:ia.
+					</p>
+					<ul>
+						<li>fromList :: [a] -&gt; Vector a</li>
+						<li>(!) :: Vector a -&gt; Int -&gt; a</li>
+					  <li>length :: Vector a -&gt; Int</li>
+						<li>elemIndex :: a -&gt; Vector a -&gt; Int</li>
+						<li>findIndex :: (a -&gt; Bool) -&gt; Vector a -&gt; Int</li>
+						<li>elem :: a -&gt; Vector a -&gt; Bool</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Data.Set</h2>
+					<p>
+						Joukko on tietorakenne jonka natiivioperaatio on `member`.
+					</p>
+					<ul>
+						<li>notMember / member :: a -&gt; Set a -&gt; Bool</li>
+						<li>union :: Set a -&gt; Set a -&gt; Set a</li>
+						<li>fromList :: [a] -&gt; Set a</li>
+						<li>singleton :: a -&gt; Set a</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Bloxorz</h2>
+					<p>
+						Pelaa peliä pari erää: http://www.miniclip.com/games/bloxorz/en/
+						, vaatii flashin :(.
+					</p>
+					<p>
+						Tehtävänä on kirjoittaa ohjelma joka ratkaisee yksinkertaisimpia
+						Bloxorz-kenttiä (ei muuttuvaa kenttää tai sortuvia ruutuja). Ratkaisu
+						rakennetaan laskemalla -potentiaalisesti ääretön määrä- siirtoja
+						alkutilanteesta ja valitsemalla niistä lyhin polku maaliin. Lisäksi ratkaisua
+						optimoidaan siten, että samaa tilaa ei koskaan lasketa kahdesti.
+					</p>
 				</section>
 
 				<section>
 					<h2>Bloxorz</h2>
 					<p>Lataa tehtävän pohja koneellesi
 						<a href="https://github.com/tPeltola/loputon-laiskuus">Githubista (https://github.com/tPeltola/loputon-laiskuus)</a>
-						tai suorita koneellasia
+						tai suorita koneellasi
 						<pre>git clone https://github.com/tPeltola/loputon-laiskuus.git</pre>
 					</p>
 				</section>
+
 
 				<section>
 					<h2>Eräs ratkaisu</h2>
