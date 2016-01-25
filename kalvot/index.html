@@ -74,6 +74,9 @@
 
 				<section>
 					<h2>Laiskuus</h2>
+					<blockquote cite="http://c2.com/cgi/wiki?LazinessImpatienceHubris">
+						We will encourage you to develop the three great virtues of a programmer: laziness, impatience, and hubris.
+					</blockquote>
 					<p>
 						Kun ohjelmointi kieli on laiska (lazy), se ei evaluoi lausekkeen
 						arvoa ennen kuin sitä tarvitaan.
@@ -106,11 +109,6 @@ let x = [1..] -- [1,2,3,...]
 
 				<section>
 					<h2>Haskell, syntaksista</h2>
-					<!-- copy-pastea varten pohjaa :) -->
-					<pre><code class="haskell" data-trim contenteditable>
-laske :: (Integer -> Integer -> Integer) -> Integer -> Integer -> Integer
-laske oper l r = oper l r
-					</code></pre>
 					<ul>
 						<li>Funktion määrittely ja kutsu</li>
 						<li>where / let in</li>
@@ -169,7 +167,7 @@ fact a = a * fact (a - 1)
 				</section>
 
 				<section>
-					<h2>Guards (&amb; pattern mathing)</h2>
+					<h2>Guards (&amp; pattern mathing)</h2>
 					<pre><code class="haskell" data-trim contenteditable>
 -- keinotekoinen esimerkki
 myFilter :: [Integer] -> [Integer]
@@ -239,12 +237,12 @@ index as = zip as [0..]
 				<section>
 					<h2>bottom / undefined / error</h2>
 					<p>
-						Haskel ei ole totaalinen (total) kieli. GHC ei yritä tarkastaa että
+						Haskell ei ole totaalinen (total) kieli. GHC ei yritä tarkastaa että
 						mikään input funktiolle ei aiheuta päättymätöntä laskentaa.
 					</p>
 					<p>
 						Kehitysaikaisessa koodissa voidaan käyttää undefined ja error-funktiota
-						apuna. Tämä auttaa erityisesti type drive development-kehittämistä.
+						apuna. Tämä auttaa erityisesti type driven development-kehittämistä (se oikea TDD).
 					</p>
 					<pre><code class="haskell" data-trim contenteditable>
 div :: Integer -> Integer -> Integer
@@ -317,15 +315,26 @@ div a b = a `div` b
 					<ul>
 						<li>notMember / member :: a -&gt; Set a -&gt; Bool</li>
 						<li>union :: Set a -&gt; Set a -&gt; Set a</li>
+						<li>insert :: a -&gt; Set a -&gt; Set a</li>
 						<li>fromList :: [a] -&gt; Set a</li>
+						<li>empty :: Set a</li>
 						<li>singleton :: a -&gt; Set a</li>
 					</ul>
 				</section>
 
 				<section>
+					<h2>Hoogle</h2>
+					<p>
+						Jos etsit tiettyä Haskell-funktiota, Hoogle auttaa
+						<a href="https://www.haskell.org/hoogle/">www.haskell.org/hoogle</a>
+
+					</p>
+				</section>
+
+				<section>
 					<h2>Bloxorz</h2>
 					<p>
-						Pelaa peliä pari erää: http://www.miniclip.com/games/bloxorz/en/
+						Pelaa peliä pari erää: <a href="http://www.miniclip.com/games/bloxorz/en/">www.miniclip.com/games/bloxorz/en/</a>
 						, vaatii flashin :(.
 					</p>
 					<p>
@@ -340,7 +349,7 @@ div a b = a `div` b
 				<section>
 					<h2>Bloxorz</h2>
 					<p>Lataa tehtävän pohja koneellesi
-						<a href="https://github.com/tPeltola/loputon-laiskuus">Githubista (https://github.com/tPeltola/loputon-laiskuus)</a>
+						<a href="https://github.com/tPeltola/loputon-laiskuus">Githubista (github.com/tPeltola/loputon-laiskuus)</a>
 						tai suorita koneellasi
 						<pre>git clone https://github.com/tPeltola/loputon-laiskuus.git</pre>
 					</p>
