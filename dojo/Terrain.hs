@@ -35,7 +35,7 @@ type LevelVector = Vector (Vector Char)
 -- booleans. The function returns `True` for every position that
 -- is inside the terrain.
 --
--- As explained in the documentation of class `Pos`, the `x` axis
+-- As explained in the documentation of type `Pos`, the `x` axis
 -- is the vertical one and increases from top to bottom.
 type Terrain = Pos -> Bool
 
@@ -76,8 +76,11 @@ toLevel t = Level { start = findChar 'S' t
 findChar :: Char -> LevelVector -> Pos
 findChar c levelVector = undefined
 
-findIndex' e vector = fromJust $ findIndex e vector
-elemIndex' f vector = fromJust $ elemIndex f vector
+findIndex' :: (Vector Char -> Bool) -> LevelVector -> Int
+findIndex' f vector = fromJust $ findIndex f vector
+
+elemIndex' :: Char -> Vector Char -> Int
+elemIndex' e vector = fromJust $ elemIndex e vector
 
 -- TODO 2:
 -- This method returns terrain function that represents the terrain
