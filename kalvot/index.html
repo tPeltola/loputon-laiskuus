@@ -239,6 +239,15 @@ add :: (Integer, Integer) -> Integer
 				</section>
 
 				<section>
+					<h2>Currying in Action</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+let add x y = x + y -- Integer -> Integer -> Integer
+let add1 = add 1 -- Integer -> Integer
+let sum = add1 2 -- Integer
+					</code></pre>
+				</section>
+
+				<section>
 					<h2>Data, Type, deriving</h2>
 					<pre><code class="haskell" data-trim contenteditable>
 data Move = Up | Down | Left | Right deriving (Eq, Show)
@@ -255,6 +264,8 @@ let t = (1,2)
 -- Tuple2:lle on
 fst t -- 1
 snd t -- 2
+-- Pattern matching
+swap (i, j) = (j, i)
 					</code></pre>
 				</section>
 
@@ -268,6 +279,8 @@ let p = Pos 0 0
 let x = x p -- x :: Int == 0
 -- uuden luominen vanhasta
 let q = p { x = 1 } -- q == Pos {x = 1, y = 0}
+-- Pattern matching
+inc i (Pos x y) = Pos (x + i) (y + i)
 					</code></pre>
 				</section>
 
@@ -295,32 +308,56 @@ div a b = a `div` b
 				</section>
 
 				<section>
-					<h2>Predule 1/2</h2>
+					<h2>Predule 1/2: List</h2>
 					<p>
 						Prelude on suhteellisen pieni haskell-moduuli, joka importoidaan
 						automaattisesti kaikkiin haskell-moduuleihin (ellei sitä explisiittisesti
 						estä). Nimitörmäysten vuoksi tehtävässä Preludesta joudutaan paikoin
 						piilottamaan osia.
 					</p>
-					<ul>
-						<li>type String = [Char]</li>
-						<li>filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</li>
-						<li>map :: (a -&gt; b) -&gt; [a] -&gt; [b]</li>
-						<li>reverse :: [a] -&gt; [a]</li>
-						<li>head :: [a] -&gt; a</li>
-						<li>tail :: [a] -&gt; [a]</li>
-						<li>null :: [a] -&gt; Bool</li>
-					</ul>
+					<pre><code class="haskell" data-trim contenteditable>
+type String = [Char]
+filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
+map :: (a -&gt; b) -&gt; [a] -&gt; [b]
+reverse :: [a] -&gt; [a]
+head :: [a] -&gt; a
+tail :: [a] -&gt; [a]
+null :: [a] -&gt; Bool
+(++) :: [a] -&gt; [a] -&gt; [a]
+(:) :: a -&gt; [a] -&gt; [a]
+					</code></pre>
 				</section>
 
 				<section>
-					<h2>Predule 2/2</h2>
-					<ul>
-						<li>fst :: (a, b) -&gt; a</li>
-						<li>snd :: (a, b) -&gt; b</li>
-						<li>($) :: (a -&gt; b) -&gt; a -&gt; b</li>
-						<li>(++) :: [a] -&gt; [a] -&gt; [a]</li>
-					</ul>
+					<h2>List in Action</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+filter (< 10) [1, 10, 23, 5]  -- [1, 5]
+map (* 10) [1, 2, 3]          -- [10, 20, 30]
+reverse "Saippuakivikauppias" -- "saippuakivikauppiaS"
+head [1..]                    -- 1
+tail [1, 2, 3]                -- [2, 3]
+null []                       -- True
+[1] ++ [2, 3]                 -- [1, 2, 3]
+1 : [2, 3]                    -- [1, 2, 3]
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Predule 2/2: Misc</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+fst :: (a, b) -&gt; a
+snd :: (a, b) -&gt; b
+($) :: (a -&gt; b) -&gt; a -&gt; b
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Show me the money</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+fst (fst (snd (1, ((2, 3), 4)))) -- 2
+fst $ fst $ snd (1, ((2, 3), 4)) -- 2
+-- Parempi, tämä ei ole mikään Lisp!
+					</code></pre>
 				</section>
 
 
@@ -341,12 +378,22 @@ div a b = a `div` b
 						rajoitus on O(n) indeksointi. Tämä tehtävä hyötyy kuitenkin O(1)
 						indeksoinnista, joten käytämme taustarakenteena Vector:ia.
 					</p>
-					<ul>
-						<li>fromList :: [a] -&gt; Vector a</li>
-						<li>(!) :: Vector a -&gt; Int -&gt; a</li>
-					  <li>length :: Vector a -&gt; Int</li>
-						<li>elem :: a -&gt; Vector a -&gt; Bool</li>
-					</ul>
+					<pre><code class="haskell" data-trim contenteditable>
+fromList :: [a] -&gt; Vector a
+(!) :: Vector a -&gt; Int -&gt; a
+length :: Vector a -&gt; Int
+elem :: a -&gt; Vector a -&gt; Bool
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Vectoring</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+fromList [1, 2, 3]           -- fromList [1, 2, 3] (kyllä, oikeasti...)
+fromList [1, 2, 3] ! 2       -- 3
+length $ fromList [1]        -- 1
+elem 3 $ fromList [2, 3, 5]  -- True
+					</code></pre>
 				</section>
 
 				<section>
@@ -354,14 +401,26 @@ div a b = a `div` b
 					<p>
 						Joukko on tietorakenne jonka natiivioperaatio on `member`.
 					</p>
-					<ul>
-						<li>notMember / member :: a -&gt; Set a -&gt; Bool</li>
-						<li>union :: Set a -&gt; Set a -&gt; Set a</li>
-						<li>insert :: a -&gt; Set a -&gt; Set a</li>
-						<li>fromList :: [a] -&gt; Set a</li>
-						<li>empty :: Set a</li>
-						<li>singleton :: a -&gt; Set a</li>
-					</ul>
+					<pre><code class="haskell" data-trim contenteditable>
+notMember / member :: a -&gt; Set a -&gt; Bool
+union :: Set a -&gt; Set a -&gt; Set a
+insert :: a -&gt; Set a -&gt; Set a
+fromList :: [a] -&gt; Set a
+empty :: Set a
+singleton :: a -&gt; Set a
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>This is a setup!</h2>
+					<pre><code class="haskell" data-trim contenteditable>
+let set = fromList [1, 1, 2]   -- fromList [1, 2]
+union set $ singleton 3        -- fromList [1, 2, 3]
+insert 5 set                   -- fromList [1, 2, 5]
+member 5 set                   -- False
+notMember 5 set                -- True
+empty                          -- fromList []
+					</code></pre>
 				</section>
 
 				<section>
