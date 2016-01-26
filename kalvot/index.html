@@ -449,13 +449,28 @@ empty                          -- fromList []
 
 				<section>
 					<h2>Bloxorz</h2>
-					<p>Lataa tehtävän pohja koneellesi
-						<a href="https://github.com/tPeltola/loputon-laiskuus">Githubista (github.com/tPeltola/loputon-laiskuus)</a>
+					<p>Lataa tehtävän pohja koneellesi Githubista
+						<a href="https://github.com/tPeltola/loputon-laiskuus">github.com/tPeltola/loputon-laiskuus</a>
 						tai suorita koneellasi
 						<pre>git clone https://github.com/tPeltola/loputon-laiskuus.git</pre>
 					</p>
 				</section>
 
+
+				<section>
+					<h2>Bloxorz</h2>
+					<p>
+						dojo-hakemistossa on valmis pohja jaettuna useampaan tiedostoon
+					</p>
+					<dl>
+						<dt>Terrain.hs</dt><dd>Kentän määrittelyt ja jäsentäminen</dd>
+						<dt>Block.hs</dt><dd>Liikutettavan blokin käsittely</dd>
+						<dt>Bloxorz.hs</dt><dd>Ratkaisun etsiminen</dd>
+						<dt>Levels.hs</dt><dd>Muutama kenttämäärittely</dd>
+						<dt>Tester.hs</dt><dd>Apumuuttujia ratkaisun testaamiseen GHCi:llä</dd>
+						<dt>UnitTests.hs</dt><dd>Yksikkötestejä joillekin funktioille</dd>
+					</dl>
+				</section>
 
 				<section>
 					<h2>Bloxorz</h2>
@@ -471,6 +486,20 @@ empty                          -- fromList []
 					</ul>
 				</section>
 
+				<section>
+					<h2>Bloxorz</h2>
+					<pre>
+$ cd dojo
+$ ghci
+Prelude> :load UnitTests
+Prelude> :load Tester
+					</pre>
+					<p>Avaa koodit editoriin. Kun saat kohdan tehtyä:</p>
+					<pre>
+Prelude> :reload
+Prelude> runTestTT tests
+					</pre>
+				</section>
 
 				<section>
 					<h2>Eräs ratkaisu</h2>
