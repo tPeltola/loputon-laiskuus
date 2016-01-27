@@ -36,7 +36,7 @@ blockDx :: Block -> Int -> Int -> Block
 blockDx b d1 d2 = makeBlock (dx (p1 b) d1) (dx (p2 b) d2)
 
 -- TODO 3:
--- Returns `true` if the block is standing.
+-- Returns `True` if the block is standing.
 standing :: Block -> Bool
 standing block = undefined
 
@@ -44,7 +44,7 @@ horizontal :: Block -> Bool
 horizontal block = (x $ p1 block) == (x $ p2 block)
 
 -- TODO 4:
--- Returns `true` if the block is entirely inside the terrain.
+-- Returns `True` if the block is entirely inside the terrain.
 isLegal :: Block -> Terrain -> Bool
 isLegal block terrain = undefined
 

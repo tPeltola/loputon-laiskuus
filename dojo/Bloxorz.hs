@@ -9,7 +9,7 @@ type Explored = Set Block
 type State = (Block, [Move])
 
 -- TODO 8:
--- Returns `true` if the block `b` is at the final position
+-- Returns `True` if the block `b` is at the final position
 done :: Block -> Level -> Bool
 done b level = undefined
 
@@ -22,7 +22,7 @@ done b level = undefined
 -- that was executed, i.e. the last move that was performed for
 -- the block to end up at position `b`.
 --
--- The function returns a stream of pairs: the first element of
+-- The function returns a list of pairs: the first element of
 -- the each pair is a neighboring block, and the second element
 -- is the augmented history of moves required to reach this block.
 --
