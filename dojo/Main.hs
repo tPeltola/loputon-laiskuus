@@ -1,4 +1,9 @@
 module Main where
 
+import UnitTests
+import Test.HUnit
+
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = do
+        runTestTT tests
+        return ()
