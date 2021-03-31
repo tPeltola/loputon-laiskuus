@@ -5,6 +5,8 @@ import Data.Maybe
 import Data.Vector (Vector, fromList, (!), length, elemIndex, findIndex, elem)
 import Prelude hiding (length) -- we need Vectors length, not Lists
 
+newtype X = X Int deriving (Show, Eq, Ord)
+newtype Y = Y Int deriving (Show, Eq, Ord)
 
 -- The data type `Pos` encodes positions in the terrain.
 --
@@ -25,7 +27,7 @@ import Prelude hiding (length) -- we need Vectors length, not Lists
 --   |
 --
 --   x axis
-data Pos = Pos { x :: Int, y :: Int } deriving (Show, Eq, Ord)
+data Pos = Pos { x :: X, y :: Y } deriving (Show, Eq, Ord)
 
 -- LevelVector that defines where tiles are is represented as 2d Vector
 --

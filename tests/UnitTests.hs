@@ -28,12 +28,12 @@ tests = TestList
   , TestLabel "Finding new neighbors for level 1" test7
   ]
 
-test1a = TestCase (assertBool "is terrain at 0,0" (terrain levelVector (Pos 0 0)))
-test1b = TestCase (assertBool "is not terrain at 4,11" (not $ terrain levelVector (Pos 4 11)))
+test1a = TestCase (assertBool "is terrain at 0,0" (terrain levelVector (newpos 0 0)))
+test1b = TestCase (assertBool "is not terrain at 4,11" (not $ terrain levelVector (newpos 4 11)))
 
 levelVector = toTerrain level1
 
-test2 = TestCase (assertEqual "start == 1,1" (Pos 1 1) (start level))
+test2 = TestCase (assertEqual "start == 1,1" (newpos 1 1) (start level))
   where level = buildLevel level1
 
 test3 =
@@ -54,18 +54,18 @@ test5 =
 test6 =
   TestCase (assertEqual
     "Neighbor history matches"
-    [(makeBlock (Pos 1 2) (Pos 1 3), [Right,Left,Up]), (makeBlock (Pos 2 1) (Pos 3 1), [Down,Left,Up])]
-    (neighboursWithHistory (makeBlock (Pos 1 1) (Pos 1 1)) level [Left, Up])
+    [(makeBlock (newpos 1 2) (newpos 1 3), [Right,Left,Up]), (makeBlock (newpos 2 1) (newpos 3 1), [Down,Left,Up])]
+    (neighboursWithHistory (makeBlock (newpos 1 1) (newpos 1 1)) level [Left, Up])
   )
   where level = buildLevel level1
 
 test7 =
   TestCase (assertEqual
     "Explored neigbors are ignored"
-    [(makeBlock (Pos 2 1) (Pos 3 1), [Down,Left,Up])]
+    [(makeBlock (newpos 2 1) (newpos 3 1), [Down,Left,Up])]
     (newNeighbours
-      [(makeBlock (Pos 1 2) (Pos 1 3), [Right,Left,Up]), (makeBlock (Pos 2 1) (Pos 3 1), [Down,Left,Up])]
-      (fromList [makeBlock (Pos 1 2) (Pos 1 3), makeBlock (Pos 1 1) (Pos 1 1)])
+      [(makeBlock (newpos 1 2) (newpos 1 3), [Right,Left,Up]), (makeBlock (newpos 2 1) (newpos 3 1), [Down,Left,Up])]
+      (fromList [makeBlock (newpos 1 2) (newpos 1 3), makeBlock (newpos 1 1) (newpos 1 1)])
       )
   )
 
@@ -79,4 +79,6 @@ solve start moves = foldl follow start moves
 
 level1solution = [Right, Right, Down, Right, Right, Right, Down]
 
-infiniteLevel = Level (Pos 0 0) (Pos 5 5) (const True)
+infiniteLevel = Level (newpos 0 0) (newpos 5 5) (const True)
+
+newpos x y = Pos (X x) (Y y)
