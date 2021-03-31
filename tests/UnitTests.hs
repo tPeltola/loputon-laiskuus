@@ -1,5 +1,7 @@
-module UnitTests where
+module Main where
 
+import Test.Framework (defaultMain, testGroup)
+import Test.Framework.Providers.HUnit
 import Test.HUnit
 
 import Block
@@ -10,7 +12,10 @@ import Terrain
 import Prelude hiding (Right, Left)
 import Data.Set (fromList)
 
--- To run the tests inside the interpreter, execute "runTestTT tests"
+-- To run the tests use `cabal test` command (or `cabal new-test` depending your cabal version)
+
+main :: IO ()
+main = defaultMain $ hUnitTestToTests tests
 
 tests = TestList
   [ TestLabel "Terrain function for level 1" test1a
