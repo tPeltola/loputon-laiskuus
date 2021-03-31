@@ -18,21 +18,21 @@ makeBlock :: Pos -> Pos -> Block
 makeBlock p1 p2 = assert (x p1 <= x p2 && y p1 <= y p2) $ B p1 p2
 
 -- The position obtained by changing the `y` coordinate by `d`
-dy :: Pos -> Int -> Pos
-dy pos d = pos { y = y pos + d }
+dy :: Pos -> Y -> Pos
+dy pos@(Pos _ (Y y')) (Y dy) = pos { y = Y $ y' + dy }
 
 -- The position obtained by changing the `x` coordinate by `d`
-dx :: Pos -> Int -> Pos
-dx pos d = pos { x = x pos + d }
+dx :: Pos -> X -> Pos
+dx pos@(Pos (X x') _) (X dx) = pos { x = X $ x' + dx }
 
 -- Returns a block where the `y` coordinates of `p1` and `p2` are
 -- changed by `d1` and `d2`, respectively.
-blockDy :: Block -> Int -> Int -> Block
+blockDy :: Block -> Y -> Y -> Block
 blockDy b d1 d2 = makeBlock (dy (p1 b) d1) (dy (p2 b) d2)
 
 -- Returns a block where the `x` coordinates of `p1` and `p2` are
 -- changed by `d1` and `d2`, respectively.
-blockDx :: Block -> Int -> Int -> Block
+blockDx :: Block -> X -> X -> Block
 blockDx b d1 d2 = makeBlock (dx (p1 b) d1) (dx (p2 b) d2)
 
 -- TODO 3:
@@ -59,27 +59,27 @@ startBlock level = undefined
 
 left :: Block -> Block
 left block
-  | standing block   = blockDy block (-2) (-1)
-  | horizontal block = blockDy block (-1) (-2)
-  | otherwise        = blockDy block (-1) (-1)
+  | standing block   = blockDy block (Y (-2)) (Y (-1))
+  | horizontal block = blockDy block (Y (-1)) (Y (-2))
+  | otherwise        = blockDy block (Y (-1)) (Y (-1))
 
 right :: Block -> Block
 right block
-  | standing block   = blockDy block 1 2
-  | horizontal block = blockDy block 2 1
-  | otherwise        = blockDy block 1 1
+  | standing block   = blockDy block (Y 1) (Y 2)
+  | horizontal block = blockDy block (Y 2) (Y 1)
+  | otherwise        = blockDy block (Y 1) (Y 1)
 
 up :: Block -> Block
 up block
-  | standing block   = blockDx block (-2) (-1)
-  | horizontal block = blockDx block (-1) (-1)
-  | otherwise        = blockDx block (-1) (-2)
+  | standing block   = blockDx block (X (-2)) (X (-1))
+  | horizontal block = blockDx block (X (-1)) (X (-1))
+  | otherwise        = blockDx block (X (-1)) (X (-2))
 
 down :: Block -> Block
 down block
-  | standing block   = blockDx block 1 2
-  | horizontal block = blockDx block 1 1
-  | otherwise        = blockDx block 2 1
+  | standing block   = blockDx block (X 1) (X 2)
+  | horizontal block = blockDx block (X 1) (X 1)
+  | otherwise        = blockDx block (X 2) (X 1)
 
 -- TODO 6:
 -- Returns the list of blocks that can be obtained by moving
