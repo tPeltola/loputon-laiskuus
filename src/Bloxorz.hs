@@ -10,8 +10,8 @@ type State = (Block, [Move])
 
 -- TODO 8:
 -- Returns `True` if the block `b` is at the final position
-done :: Block -> Level -> Bool
-done b level = undefined
+done :: Level -> Block -> Bool
+done level b = undefined
 
 -- TODO 9:
 -- This function takes three arguments: the current block `b`,
@@ -28,15 +28,15 @@ done b level = undefined
 --
 -- It should only return valid neighbors, i.e. block positions
 -- that are inside the terrain.
-neighboursWithHistory :: Block -> Level -> [Move] -> [State]
-neighboursWithHistory b level history = undefined
+neighboursWithHistory :: Level -> [Move] -> Block -> [State]
+neighboursWithHistory level history b = undefined
 
 -- TODO 10:
 -- This function returns the list of neighbors without the block
 -- positions that have already been explored. We will use it to
 -- make sure that we don't explore circular paths.
-newNeighbours :: [State] -> Explored -> [State]
-newNeighbours neighbours explored = undefined
+newNeighbours :: Explored -> [State] -> [State]
+newNeighbours explored neighbors = undefined
 
 -- TODO 11:
 -- The function `from` returns the infinite list of all possible paths
@@ -60,8 +60,8 @@ newNeighbours neighbours explored = undefined
 -- Note: the solution should not look at or compare the lengths
 -- of different paths - the implementation should naturally
 -- construct the correctly sorted list.
-from :: Level -> [State] -> Explored -> [State]
-from level initial explored = undefined
+from :: Level -> Explored -> [State] -> [State]
+from level explored initial = undefined
 
 -- TODO 12:
 -- The (possibly) infinite list of all paths that begin at the starting block.

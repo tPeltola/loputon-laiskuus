@@ -55,7 +55,7 @@ test6 =
   TestCase (assertEqual
     "Neighbor history matches"
     [(makeBlock (newpos 1 2) (newpos 1 3), [Right,Left,Up]), (makeBlock (newpos 2 1) (newpos 3 1), [Down,Left,Up])]
-    (neighboursWithHistory (makeBlock (newpos 1 1) (newpos 1 1)) level [Left, Up])
+    (neighboursWithHistory level [Left, Up] (makeBlock (newpos 1 1) (newpos 1 1)))
   )
   where level = buildLevel level1
 
@@ -64,8 +64,8 @@ test7 =
     "Explored neigbors are ignored"
     [(makeBlock (newpos 2 1) (newpos 3 1), [Down,Left,Up])]
     (newNeighbours
-      [(makeBlock (newpos 1 2) (newpos 1 3), [Right,Left,Up]), (makeBlock (newpos 2 1) (newpos 3 1), [Down,Left,Up])]
       (fromList [makeBlock (newpos 1 2) (newpos 1 3), makeBlock (newpos 1 1) (newpos 1 1)])
+      [(makeBlock (newpos 1 2) (newpos 1 3), [Right,Left,Up]), (makeBlock (newpos 2 1) (newpos 3 1), [Down,Left,Up])]
       )
   )
 

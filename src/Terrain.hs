@@ -62,8 +62,8 @@ toTerrain :: [String] -> LevelVector
 toTerrain rows = fromList $ map fromList rows
 
 toLevel :: LevelVector -> Level
-toLevel t = Level { start = findChar 'S' t
-                  , goal = findChar 'T' t
+toLevel t = Level { start = findChar t 'S'
+                  , goal = findChar t 'T'
                   , terr = terrain t
                   }
 
@@ -75,8 +75,8 @@ toLevel t = Level { start = findChar 'S' t
 -- Hint: you can use the functions `findIndex` and / or `elemIndex` of the
 -- `Vector` type or use the following definitions that get rid of the
 -- Maybe wrapper (not really relevant in this task).
-findChar :: Char -> LevelVector -> Pos
-findChar c levelVector = undefined
+findChar :: LevelVector -> Char -> Pos
+findChar levelVector c = undefined
 
 findIndex' :: (Vector Char -> Bool) -> LevelVector -> Int
 findIndex' f vector = fromJust $ findIndex f vector

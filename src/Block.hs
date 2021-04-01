@@ -45,8 +45,8 @@ horizontal block = (x $ p1 block) == (x $ p2 block)
 
 -- TODO 4:
 -- Returns `True` if the block is entirely inside the terrain.
-isLegal :: Block -> Terrain -> Bool
-isLegal block terrain = undefined
+isLegal :: Terrain -> Block ->  Bool
+isLegal terrain block = undefined
 
 -- TODO 5:
 -- This function returns the block at the start position of
@@ -90,5 +90,5 @@ neighbours block = undefined
 -- TODO 7:
 -- Returns the list of positions reachable from the current block
 -- which are inside the terrain.
-legalNeighbours :: Block -> Terrain -> [(Block, Move)]
-legalNeighbours block terrain = undefined
+legalNeighbours :: Terrain -> Block ->  [(Block, Move)]
+legalNeighbours terrain block = undefined
