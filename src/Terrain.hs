@@ -1,14 +1,14 @@
 module Terrain where
 
 import Data.Char
+import Data.Functor (($>))
+import Data.Maybe
+import Data.Vector (Vector, fromList, (!), length, elemIndex, findIndex, elem)
 import Data.Void
+import Prelude hiding (length) -- we need Vectors length, not Lists
 import Text.Megaparsec (runParser, Parsec, (<|>), many)
 import Text.Megaparsec.Char (char)
 import Text.Megaparsec.Error (errorBundlePretty)
-import Data.Maybe
-import Data.Functor (($>))
-import Data.Vector (Vector, fromList, (!), length, elemIndex, findIndex, elem)
-import Prelude hiding (length) -- we need Vectors length, not Lists
 
 newtype X = X Int deriving (Show, Eq, Ord)
 newtype Y = Y Int deriving (Show, Eq, Ord)
