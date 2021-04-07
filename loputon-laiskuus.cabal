@@ -13,6 +13,7 @@ library
       base
     , vector
     , containers
+    , megaparsec
   default-language: Haskell2010
 
 test-suite unit-tests
