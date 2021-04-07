@@ -35,7 +35,7 @@ newtype Y = Y Int deriving (Show, Eq, Ord)
 data Pos = Pos { x :: X, y :: Y } deriving (Show, Eq, Ord)
 
 -- Different tile types on the terrain
-data Tile = Start | Goal | On | Off deriving (Show, Eq)
+data Tile = Start | Goal | Field | Gap deriving (Show, Eq)
 
 -- LevelVector that defines where tiles are is represented as 2d Vector
 --
@@ -86,8 +86,8 @@ parseRow row =
         
         start   = char 'S' $> Start
         goal    = char 'T' $> Goal
-        on      = char 'o' $> On
-        off     = char '-' $> Off
+        on      = char 'o' $> Field
+        off     = char '-' $> Gap
 
 toLevel :: LevelVector -> Level
 toLevel t = Level { start = findTile t Start
